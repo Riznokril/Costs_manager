@@ -22,6 +22,14 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // Logo
+                  Image.asset(
+                    'lib/assets/images/logo.png',
+                    width: 150,
+                    height: 150,
+                  ),
+                  SizedBox(height: 24),
+
                   // Hello again!
                   Text(
                     "Hello Again!",
