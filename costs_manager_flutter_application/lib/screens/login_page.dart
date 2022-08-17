@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../utils/general_widgets.dart';
+
 class LoginPage extends StatefulWidget {
   final VoidCallback showRegisterPage;
   const LoginPage({
@@ -64,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     SizedBox(height: 12.0),
                     Text(
-                      "Welcome back, you\'ve been missed!",
+                      "Welcome back, you've been missed!",
                       style: TextStyle(
                         fontSize: 20,
                       ),
@@ -74,45 +76,21 @@ class _LoginPageState extends State<LoginPage> {
                     ),
 
                     // email TextField
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: TextField(
-                          controller: _emailController,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Email",
-                          ),
-                        ),
-                      ),
+                    GeneralTextField(
+                      controller: _emailController,
+                      hintText: "Email",
+                      isPassword: false,
                     ),
                     SizedBox(height: 12.0),
 
                     // password TextField
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: TextField(
-                          obscureText: true,
-                          controller: _passwordController,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Password",
-                          ),
-                        ),
-                      ),
+                    GeneralTextField(
+                      controller: _passwordController,
+                      hintText: "Password",
+                      isPassword: true,
                     ),
                     SizedBox(height: 12.0),
+
                     // sign in button
                     GestureDetector(
                       onTap: signIn,
@@ -143,11 +121,13 @@ class _LoginPageState extends State<LoginPage> {
                         Text("Not a member? "),
                         GestureDetector(
                           onTap: widget.showRegisterPage,
-                          child: Text("Register now",
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
-                              )),
+                          child: Text(
+                            "Register now",
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ],
                     )

@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:costs_manager_flutter_application/utils/general_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -86,64 +89,26 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
 
                   // email TextField
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      border: Border.all(color: Colors.white),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: TextField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Email",
-                        ),
-                      ),
-                    ),
+                  GeneralTextField(
+                    controller: _emailController,
+                    hintText: "Email",
+                    isPassword: false,
                   ),
                   SizedBox(height: 12.0),
 
                   // password TextField
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      border: Border.all(color: Colors.white),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: TextField(
-                        obscureText: true,
-                        controller: _passwordController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Password",
-                        ),
-                      ),
-                    ),
+                  GeneralTextField(
+                    controller: _passwordController,
+                    hintText: "Password",
+                    isPassword: true,
                   ),
                   SizedBox(height: 12.0),
 
                   // confirm password TextField
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      border: Border.all(color: Colors.white),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: TextField(
-                        obscureText: true,
-                        controller: _confirmPasswordController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Confirm Password",
-                        ),
-                      ),
-                    ),
+                  GeneralTextField(
+                    controller: _confirmPasswordController,
+                    hintText: "Confirm Password",
+                    isPassword: true,
                   ),
                   SizedBox(height: 12.0),
 
