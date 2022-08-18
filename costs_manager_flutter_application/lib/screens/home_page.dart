@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
         actions: [
           GestureDetector(
             onTap: () {
@@ -70,6 +71,11 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (() {}),
+        child: Icon(Icons.add),
+        backgroundColor: Colors.deepPurple,
       ),
     );
   }

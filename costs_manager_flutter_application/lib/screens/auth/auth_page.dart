@@ -1,5 +1,5 @@
-import 'package:costs_manager_flutter_application/screens/login_page.dart';
-import 'package:costs_manager_flutter_application/screens/register_page.dart';
+import 'package:costs_manager_flutter_application/screens/auth/login_page.dart';
+import 'package:costs_manager_flutter_application/screens/auth/register_page.dart';
 import 'package:flutter/material.dart';
 
 class AuthPage extends StatefulWidget {
