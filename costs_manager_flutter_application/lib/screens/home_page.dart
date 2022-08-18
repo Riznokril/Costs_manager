@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:costs_manager_flutter_application/screens/add_new_cost_page.dart';
 import 'package:costs_manager_flutter_application/utils/get_costs_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -30,6 +31,12 @@ class _HomePageState extends State<HomePage> {
             },
           ),
         );
+  }
+
+  @override
+  void dispose() {
+    docIDs.clear();
+    super.dispose();
   }
 
   @override
@@ -73,7 +80,12 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (() {}),
+        onPressed: (() {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddNewCostPage()),
+          );
+        }),
         child: Icon(Icons.add),
         backgroundColor: Colors.deepPurple,
       ),

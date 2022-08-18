@@ -19,9 +19,19 @@ class GetCostData extends StatelessWidget {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
           return CostsCard(
-              title: data['place'], subtitle: data['cost'].toString());
+            title: data['place'],
+            subtitle:
+                DateTime.parse(data['time'].toDate().toString()).toString(),
+            leading: data['category'],
+            trailing: data['cost'].toString(),
+          );
         }
-        return CostsCard(title: "Loading...", subtitle: "Loading...");
+        return CostsCard(
+          title: "Loading...",
+          subtitle: "Loading...",
+          leading: "Loading...",
+          trailing: "Loading...",
+        );
       },
     );
   }

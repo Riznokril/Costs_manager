@@ -43,11 +43,22 @@ class CostsCard extends StatelessWidget {
   const CostsCard({
     required this.title,
     required this.subtitle,
+    required this.leading,
+    required this.trailing,
     Key? key,
   }) : super(key: key);
 
   final String title;
   final String subtitle;
+  final String leading;
+  final String trailing;
+
+  IconData chooseLeadingIcon(String leading) {
+    if (leading == "Product") {
+      return Icons.shopping_cart;
+    }
+    return Icons.question_mark;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,8 +117,12 @@ class CostsCard extends StatelessWidget {
                   style: GoogleFonts.roboto(fontSize: 22),
                 ),
                 leading: Icon(
-                  Icons.person,
+                  chooseLeadingIcon(leading),
                   size: 40,
+                ),
+                trailing: Text(
+                  trailing,
+                  style: GoogleFonts.roboto(fontSize: 22),
                 ),
               ),
             ),
