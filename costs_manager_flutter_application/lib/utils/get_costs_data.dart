@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:costs_manager_flutter_application/utils/general_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class GetCostData extends StatelessWidget {
   final String documentId;
@@ -21,9 +24,10 @@ class GetCostData extends StatelessWidget {
           return CostsCard(
             title: data['place'],
             subtitle:
-                DateTime.parse(data['time'].toDate().toString()).toString(),
+                DateFormat('dd-MM-yyyy KK:mm').format(data['time'].toDate()),
             leading: data['category'],
-            trailing: data['cost'].toString(),
+            trailing: "${data['cost'].toString()} грн",
+            documentId: documentId,
           );
         }
         return CostsCard(
@@ -31,6 +35,7 @@ class GetCostData extends StatelessWidget {
           subtitle: "Loading...",
           leading: "Loading...",
           trailing: "Loading...",
+          documentId: "",
         );
       },
     );

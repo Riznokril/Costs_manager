@@ -1,19 +1,33 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:costs_manager_flutter_application/screens/add_new_cost_page.dart';
 import 'package:costs_manager_flutter_application/utils/general_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class AddNewCostPage extends StatefulWidget {
-  AddNewCostPage({Key? key}) : super(key: key);
+class EditCostPage extends StatefulWidget {
+  EditCostPage({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.leading,
+    required this.trailing,
+    required this.documentId,
+  }) : super(key: key);
+
+  final String title;
+  final String subtitle;
+  final String leading;
+  final String trailing;
+  final String documentId;
 
   @override
-  State<AddNewCostPage> createState() => _AddNewCostPageState();
+  State<EditCostPage> createState() => _EditCostPageState();
 }
 
-class _AddNewCostPageState extends State<AddNewCostPage> {
+class _EditCostPageState extends State<EditCostPage> {
   // text controllers
   final _categoryController = TextEditingController();
   final _costController = TextEditingController();
@@ -64,12 +78,37 @@ class _AddNewCostPageState extends State<AddNewCostPage> {
     setState(() => this.dateTime = dateTime);
   }
 
-  // add new cost
-  Future addNewCost() async {
-    await FirebaseFirestore.instance.collection("costs").add({
-      'category': _categoryController.text.trim(),
-      'cost': _costController.text.trim(),
-      'place': _placeController.text.trim(),
+  // update cost
+  Future updateCost() async {
+    // declaring category variable and checking if TextField was changed
+    String category;
+    if (_categoryController.text.trim() == "") {
+      category = widget.leading;
+    } else {
+      category = _categoryController.text.trim();
+    }
+    // declaring cost variable and checking if TextField was changed
+    String cost;
+    if (_costController.text.trim() == "") {
+      cost = widget.trailing;
+    } else {
+      cost = _costController.text.trim();
+    }
+    // declaring place variable and checking if TextField was changed
+    String place;
+    if (_placeController.text.trim() == "") {
+      place = widget.title;
+    } else {
+      place = _placeController.text.trim();
+    }
+
+    await FirebaseFirestore.instance
+        .collection("costs")
+        .doc(widget.documentId)
+        .update({
+      'category': category,
+      'cost': cost,
+      'place': place,
       'time': dateTime,
     });
   }
@@ -82,7 +121,7 @@ class _AddNewCostPageState extends State<AddNewCostPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
-          addNewCost();
+          updateCost();
           Navigator.pop(context);
         }),
         child: Icon(Icons.check),
@@ -95,81 +134,52 @@ class _AddNewCostPageState extends State<AddNewCostPage> {
             child: Column(
               children: [
                 Text(
-                  "Add new cost",
+                  "Edit this cost",
                   style: GoogleFonts.bebasNeue(
                     fontSize: 56,
                   ),
                 ),
                 SizedBox(height: 12.0),
                 Text(
-                  "Put some datails please",
+                  "Check and edit please",
                   style: TextStyle(
                     fontSize: 20,
                   ),
                 ),
+
+                // category
                 SizedBox(height: 12),
                 GeneralTextField(
                   controller: _categoryController,
-                  hintText: "Category",
+                  hintText: widget.leading,
                   isPassword: false,
                 ),
                 SizedBox(height: 8),
+
+                // cost
                 GeneralTextField(
                   controller: _costController,
-                  hintText: "Cost",
+                  hintText: widget.trailing,
                   isPassword: false,
                 ),
                 SizedBox(height: 8),
+
+                // place
                 GeneralTextField(
                   controller: _placeController,
-                  hintText: "Place",
+                  hintText: widget.title,
                   isPassword: false,
                 ),
                 SizedBox(height: 8),
+                // time
                 DateAndTimeTextField(
                   controller: _dateAndTimeController,
-                  hintText: DateFormat('dd-MM-yyyy KK:mm').format(dateTime),
+                  hintText: widget.subtitle,
                   onTap: pickDateAndTime,
                 ),
                 SizedBox(height: 8),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class DateAndTimeTextField extends StatelessWidget {
-  const DateAndTimeTextField({
-    Key? key,
-    required this.controller,
-    required this.hintText,
-    required this.onTap,
-  }) : super(key: key);
-
-  final TextEditingController controller;
-  final String hintText;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        border: Border.all(color: Colors.white),
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: TextField(
-          readOnly: true,
-          onTap: onTap,
-          controller: controller,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: hintText,
           ),
         ),
       ),

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:costs_manager_flutter_application/screens/edit_cost_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,6 +46,7 @@ class CostsCard extends StatelessWidget {
     required this.subtitle,
     required this.leading,
     required this.trailing,
+    required this.documentId,
     Key? key,
   }) : super(key: key);
 
@@ -52,10 +54,20 @@ class CostsCard extends StatelessWidget {
   final String subtitle;
   final String leading;
   final String trailing;
+  final String documentId;
 
   IconData chooseLeadingIcon(String leading) {
     if (leading == "Product") {
       return Icons.shopping_cart;
+    }
+    if (leading == "Restaurant") {
+      return Icons.restaurant;
+    }
+    if (leading == "Home") {
+      return Icons.home;
+    }
+    if (leading == "Gaming") {
+      return Icons.sports_esports;
     }
     return Icons.question_mark;
   }
@@ -74,17 +86,25 @@ class CostsCard extends StatelessWidget {
               motion: DrawerMotion(),
               children: [
                 SlidableAction(
-                  onPressed: (context) => {},
-                  icon: Icons.phone,
+                  onPressed: (context) => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditCostPage(
+                          title: title,
+                          subtitle: subtitle,
+                          leading: leading,
+                          trailing: trailing,
+                          documentId: documentId,
+                        ),
+                      ),
+                    )
+                  },
+                  icon: Icons.edit_rounded,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12),
                     bottomLeft: Radius.circular(12),
                   ),
-                  backgroundColor: Colors.deepOrange,
-                ),
-                SlidableAction(
-                  onPressed: (context) => {},
-                  icon: Icons.message,
                   backgroundColor: Colors.deepPurple,
                 ),
               ],
@@ -114,7 +134,7 @@ class CostsCard extends StatelessWidget {
                 ),
                 subtitle: Text(
                   subtitle,
-                  style: GoogleFonts.roboto(fontSize: 22),
+                  style: GoogleFonts.roboto(fontSize: 18),
                 ),
                 leading: Icon(
                   chooseLeadingIcon(leading),
