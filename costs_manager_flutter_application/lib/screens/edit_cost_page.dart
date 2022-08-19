@@ -44,7 +44,8 @@ class _EditCostPageState extends State<EditCostPage> {
   }
 
   // create date and time
-  DateTime dateTime = DateTime.now();
+  late DateTime dateTime =
+      DateFormat("dd-MM-yyyy hh:mm").parse(widget.subtitle);
 
   // pick date
   Future<DateTime?> pickDate() => showDatePicker(
@@ -88,11 +89,12 @@ class _EditCostPageState extends State<EditCostPage> {
       category = _categoryController.text.trim();
     }
     // declaring cost variable and checking if TextField was changed
-    String cost;
+    double cost;
     if (_costController.text.trim() == "") {
-      cost = widget.trailing;
+      cost = double.parse(
+          widget.trailing.substring(0, widget.trailing.indexOf(" ")));
     } else {
-      cost = _costController.text.trim();
+      cost = double.parse(_costController.text.trim());
     }
     // declaring place variable and checking if TextField was changed
     String place;
@@ -174,7 +176,7 @@ class _EditCostPageState extends State<EditCostPage> {
                 // time
                 DateAndTimeTextField(
                   controller: _dateAndTimeController,
-                  hintText: widget.subtitle,
+                  hintText: DateFormat("dd-MM-yyyy hh:mm").format(dateTime),
                   onTap: pickDateAndTime,
                 ),
                 SizedBox(height: 8),

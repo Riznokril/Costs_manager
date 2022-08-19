@@ -68,7 +68,7 @@ class _AddNewCostPageState extends State<AddNewCostPage> {
   Future addNewCost() async {
     await FirebaseFirestore.instance.collection("costs").add({
       'category': _categoryController.text.trim(),
-      'cost': _costController.text.trim(),
+      'cost': int.parse(_costController.text.trim()),
       'place': _placeController.text.trim(),
       'time': dateTime,
     });
