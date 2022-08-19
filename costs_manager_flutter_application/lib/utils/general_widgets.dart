@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:costs_manager_flutter_application/screens/edit_cost_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -72,6 +73,13 @@ class CostsCard extends StatelessWidget {
     return Icons.question_mark;
   }
 
+  Future deleteCost(String documentId) async {
+    await FirebaseFirestore.instance
+        .collection("costs")
+        .doc(documentId)
+        .delete();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -113,7 +121,7 @@ class CostsCard extends StatelessWidget {
               motion: DrawerMotion(),
               children: [
                 SlidableAction(
-                  onPressed: (context) => {},
+                  onPressed: (context) => {deleteCost(documentId)},
                   icon: Icons.delete,
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(12),
